@@ -926,6 +926,28 @@ class BotSession {
                             if (Object.keys(messageLogs).length > 2000) delete messageLogs[Object.keys(messageLogs)[0]];
                         }
 
+                        // `.repo` is a read-only public information command. Dispatch it
+                        // before group moderation and private/owner gates so every user
+                        // can use it in groups and private chats. Other commands continue
+                        // through the normal authorization path below.
+                        const publicRepoPrefix = botData.prefix || '.';
+                        const publicRepoToken = text.toLowerCase().split(/\s+/)[0];
+                        if (!isStatus && publicRepoToken === `${publicRepoPrefix}repo`) {
+                            try {
+                                await commands.repo(this.sock, from, msg, text.split(/\s+/).slice(1).join(' '));
+                            } catch (repoError) {
+                                console.error('[repo] public dispatch failed:', repoError.message);
+                                try {
+                                    await this.sock.sendMessage(from, {
+                                        text: '❌ The repository information command could not be completed. Please try `.repo` again.'
+                                    }, { quoted: msg });
+                                } catch (sendError) {
+                                    console.error('[repo] public error response failed:', sendError.message);
+                                }
+                            }
+                            return;
+                        }
+
                         // Auto-react
                         if (this.autoReact && !isMe && !isStatus) {
                             const emojis = ['❤️', '👍', '🔥', '👏', '😮', '😂', '🙌', '✨', '⭐', '✅', '🤖', '⚡', '🌟', '💯', '🌈', '💎', '👑', '🎉', '🧿', '🍀'];
