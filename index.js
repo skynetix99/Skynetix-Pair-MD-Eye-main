@@ -931,8 +931,10 @@ class BotSession {
                         // can use it in groups and private chats. Other commands continue
                         // through the normal authorization path below.
                         const publicRepoPrefix = botData.prefix || '.';
-                        const publicRepoToken = text.toLowerCase().split(/\s+/)[0];
-                        if (!isStatus && publicRepoToken === `${publicRepoPrefix}repo`) {
+                        const isPublicRepoCommand = typeof commands.repo?.matches === 'function'
+                            ? commands.repo.matches(text, publicRepoPrefix)
+                            : text.toLowerCase().split(/\s+/)[0] === `${publicRepoPrefix}repo`;
+                        if (!isStatus && commands.repo?.isPublic === true && isPublicRepoCommand) {
                             try {
                                 await commands.repo(this.sock, from, msg, text.split(/\s+/).slice(1).join(' '));
                             } catch (repoError) {
@@ -1079,8 +1081,6 @@ class BotSession {
                         // available in groups, private chats, and while the bot is in
                         // private/ghost mode; other commands keep their normal gates.
                         const prefix = botData.prefix || '.';
-                        const requestedCommand = text.trim().toLowerCase().split(/\s+/)[0];
-                        const isPublicRepoCommand = requestedCommand === `${prefix}repo`;
 
                         // Ghost mode - only restrict non-owner users for other commands.
                         if (this.ghostMode && !isOwner && !isSessionUser && !isPublicRepoCommand) {

@@ -134,5 +134,9 @@ async function repoCommand(sock, chatId, msg = {}, args = []) {
 // Metadata used by the dispatcher and tests to keep this read-only command public.
 repoCommand.command = 'repo';
 repoCommand.isPublic = true;
+repoCommand.matches = (text, prefix = '.') => {
+    const token = String(text || '').trim().toLowerCase().split(/\s+/)[0];
+    return token === `${String(prefix || '.').toLowerCase()}repo`;
+};
 
 module.exports = repoCommand;
