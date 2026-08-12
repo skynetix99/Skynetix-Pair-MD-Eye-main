@@ -699,11 +699,7 @@ class BotSession {
     // OpenAI-compatible engine first, free APIs as fallbacks.
     async getAIResponse(userJid, userMessage) {
         const { getAIResponse } = require('./lib/aiProvider');
-        try {
-            return await getAIResponse(userJid, userMessage);
-        } catch (e) {
-            return "\u{274C} AI Error: " + e.message;
-        }
+        return getAIResponse(userJid, userMessage);
     }
 
     startActiveCheck() {
