@@ -4,8 +4,9 @@ const settings = require('../settings');
  * Send repository information for the configured GitHub project.
  * The command is deliberately resilient: GitHub failures show the repository
  * link and local bot information instead of preventing a response entirely.
+ * This command is intentionally public; authorization is not checked here.
  */
-module.exports = async function repoCommand(sock, chatId, msg = {}, args = []) {
+async function repoCommand(sock, chatId, msg = {}, args = []) {
     const toBold = (text) => {
         const boldChars = {
             a: '𝗮', b: '𝗯', c: '𝗰', d: '𝗱', e: '𝗲', f: '𝗳', g: '𝗴', h: '𝗵', i: '𝗶', j: '𝗷',
@@ -129,3 +130,9 @@ module.exports = async function repoCommand(sock, chatId, msg = {}, args = []) {
     }
 };
 
+
+// Metadata used by the dispatcher and tests to keep this read-only command public.
+repoCommand.command = 'repo';
+repoCommand.isPublic = true;
+
+module.exports = repoCommand;
