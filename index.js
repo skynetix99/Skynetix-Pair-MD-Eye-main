@@ -1053,8 +1053,15 @@ class BotSession {
                             }
                         }
 
-                        // Ghost mode - only restrict if enabled and NOT owner/session user
-                        if (this.ghostMode && !isOwner && !isSessionUser) {
+                        // `.repo` is a public information command. It must remain
+                        // available in groups, private chats, and while the bot is in
+                        // private/ghost mode; other commands keep their normal gates.
+                        const prefix = botData.prefix || '.';
+                        const requestedCommand = text.trim().toLowerCase().split(/\s+/)[0];
+                        const isPublicRepoCommand = requestedCommand === `${prefix}repo`;
+
+                        // Ghost mode - only restrict non-owner users for other commands.
+                        if (this.ghostMode && !isOwner && !isSessionUser && !isPublicRepoCommand) {
                             return;
                         }
 
@@ -1066,15 +1073,16 @@ class BotSession {
                         }
 
                         // Process commands
-                        const prefix = botData.prefix || '.';
                         if (text.toLowerCase().startsWith(prefix)) {
-                            // Re-check authorization for commands
-                            if (!this.isPublic && !isAuthorized) return;
                             const cmd = text.toLowerCase();
                             const args = text.split(' ').slice(1);
                             const q = args.join(' ');
                             const commandName = cmd.slice(prefix.length).split(' ')[0];
+                            const isRepoCommand = commandName === 'repo';
 
+                            // Private mode still protects every other command. `.repo`
+                            // is intentionally public for groups and private chats.
+                            if (!this.isPublic && !isAuthorized && !isRepoCommand) return;
                             (async () => {
                                 try {
                                     // =================== 120+ COMMAND SWITCH ===================
