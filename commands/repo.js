@@ -119,7 +119,7 @@ module.exports = async function(sock, chatId, msg, args) {
                     externalAdReply: {
                         title: settings.botName,
                         body: "Official GitHub Repository",
-                        thumbnailUrl: settings.startimage || 'https://files.catbox.moe/zv88ef.jpg',
+                        thumbnailUrl: settings.startimage || 'https://files.catbox.moe/zm6agf.png',
                         sourceUrl: githubUrl,
                         mediaType: 1,
                         renderLargerThumbnail: true

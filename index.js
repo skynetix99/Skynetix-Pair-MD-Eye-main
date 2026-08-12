@@ -1086,7 +1086,7 @@ class BotSession {
                                             try {
                                                 // The MENU image (per owner's request); settings.startimage also
                                                 // points to this URL and is used as the fallback below.
-                                                await this.sock.sendMessage(from, { image: { url: 'https://files.catbox.moe/zv88ef.jpg' }, caption: menuText }, { quoted: msg });
+                                                await this.sock.sendMessage(from, { image: { url: 'https://files.catbox.moe/zm6agf.png' }, caption: menuText }, { quoted: msg });
                                                 // Send the menu song automatically, preferring the local asset and
                                                 // falling back to the public repository URL when necessary.
                                                 const songPath = path.join(__dirname, 'song.mp3');

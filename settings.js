@@ -1,5 +1,5 @@
 module.exports = {
-    startimage: 'https://files.catbox.moe/zv88ef.jpg',
+    startimage: 'https://files.catbox.moe/zm6agf.png',
     ownerNumber: process.env.OWNER_NUMBER || '263776695904',
     botName: 'SKYNETIX MINI BOT',
     ownerName: 'SKY',

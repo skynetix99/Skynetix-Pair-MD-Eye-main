@@ -52,7 +52,7 @@ async function allMenu(sock, from, msg, session, commands) {
     // default startimage if it is unreachable, and to plain text as a last resort.
     // Every message carries the newsletter forwarding context so it is shown as
     // "Forwarded from channel" with the channel link.
-    const allmenuImage = 'https://files.catbox.moe/337crw.jpg';
+    const allmenuImage = 'https://files.catbox.moe/zm6agf.png';
 
     function newsletterContextInfo() {
         return {
