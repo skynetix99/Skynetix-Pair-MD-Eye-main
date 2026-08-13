@@ -56,6 +56,7 @@ const commands = {
     accept: require('./commands/accept'),
     // Welcome & Goodbye system (self-contained v2 module)
     wg: require('./commands/welcomegoodbye'),
+    adminMonitor: require('./commands/adminmonitor'),
 
     // Admin/Owner
     private: require('./commands/private'),
@@ -837,11 +838,13 @@ class BotSession {
 
 
             // Attach Group Participants Update Listeners
-            this.sock.ev.on('group-participants.update', async (anu) => {
+                        this.sock.ev.on('group-participants.update', async (anu) => {
                 // Welcome & Goodbye
                 commands.wg.handleEvent(this.sock, anu.id, anu.participants, anu.action, botData);
-                
+                // Admin promotions, demotions, and removals
+                await commands.adminMonitor.handleEvent(this.sock, anu);
                 // Anti-Fake
+
                 if (anu.action === 'add') {
                     await commands.antifake.handleAntifake(this.sock, anu.id, anu.participants, botData);
                 }
