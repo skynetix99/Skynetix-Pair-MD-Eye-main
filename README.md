@@ -14,7 +14,7 @@
 
 <p>
   <a href="https://t.me/+ajTTpmRlM7w0NzA0"><img src="https://img.shields.io/badge/Telegram-Community-ff1a1a?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram red and blue" /></a>
-  <a href="https://skynetix-pair-md-eye-main-production-9ec9.up.railway.app"><img src="https://img.shields.io/badge/Pair-Pairing%20Site-229ED9?style=for-the-badge&logo=railway&logoColor=white" alt="Pair red and blue" /></a>
+  <a href="https://skynetix-pair-md-eye-main-production-a712.up.railway.app"><img src="https://img.shields.io/badge/Pair-Pairing%20Site-229ED9?style=for-the-badge&logo=railway&logoColor=white" alt="Pair red and blue" /></a>
 </p>
 
 ## <font color="#229ED9">𝗙𝗢𝗥𝗞 𝗥𝗘𝗣𝗢𝗦𝗜𝗧𝗢𝗥𝗬</font>
